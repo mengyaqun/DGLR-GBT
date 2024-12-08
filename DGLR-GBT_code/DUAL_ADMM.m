@@ -19,23 +19,7 @@ function X = DUAL_ADMM(params)
 % Output:
 %       X - sparse coefficient matrix
 %{
-% 双图正则化稀疏编码算法 (DUAL_ADMM)。
-% DUAL_ADMM 解决优化问题：
-min |Y-D*X|_F^2 + beta*tr(X*Lc*X')+alpha*tr(X'*Lr*X) s.t. |x_i|_0 <= T
-% X  
-% 主要参数：
-D - 字典（其列必须标准化）
-% Y - 要表示的信号
-% T--稀疏性约束（每个信号的最大系数数）
-% L - 流形图拉普拉卡方
-% beta - 正则化系数
-% X - 初始稀疏代码（默认：运行非正则化 OMP）
-% iternum - ADMM 的迭代次数（默认值：25）
-% rho - ADMM 步长参数（默认值：1）
-% runDebiasing - 使用最小二乘法更新已确定的支持值（默认：1）
-% rundebias
-% 输出：
-% X - 稀疏系数矩阵
+
 %}
 if ~exist('omp','file')
     error('OMP Package missing!');
@@ -120,13 +104,7 @@ end
 
 
 %{
-在 MATLAB 中，这段代码定义了一个名为SpProj的函数，它接受两个参数：
-XU（输入矩阵）和T（目标稀疏度）。函数的主要目的是对输入矩阵进行稀疏投影。
-首先，创建一个与输入矩阵XU大小相同的零矩阵Z，用于存储稀疏投影结果。
-接下来，使用一个 for 循环遍历矩阵Z的列。在循环内部，首先计算输入矩阵XU的第j列的绝对值，并按降序排序。
-然后，将排序后的索引ind分成两部分：ind(1:T) 和 ind(T+1:end)。前T个最大绝对值的元素对应于矩阵Z的第j列的前T个元素，
-即 Z(ind(1:T),j)。最后，将XU中对应这些索引的元素赋值给Z的第j列，完成稀疏投影。
-这样，SpProj函数就实现了对输入矩阵XU的稀疏投影，并将结果存储在矩阵Z中。
+
 %}
 function Z = SpProj(XU,T)
 Z = zeros(size(XU));
